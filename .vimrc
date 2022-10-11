@@ -1,25 +1,88 @@
 :color desert
 :set cursorline
 
-set nu!
+set nu
 set hlsearch
 set shellcmdflag=-ic
 set shellcmdflag=-c
-set smartindent
-set tabstop=4
+set tabstop=4 softtabstop=4
 set shiftwidth=4
 set expandtab
-nnoremap <F3> :set hlsearch!<CR>
+set updatetime=200
+set signcolumn=yes
+set encoding=utf-8
+
+set noerrorbells
+set smartindent
+set smartcase
+set incsearch
+set relativenumber
+set scrolloff=8
+set colorcolumn=100
+set showcmd
+
+nnoremap <F2> :set hlsearch!<CR>
 
 "---------
 "" Plugins
 "---------
 call plug#begin('~/.vim/plugged')
 Plug 'scrooloose/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plug 'airblade/vim-gitgutter'
+"Plug 'ryanoasis/vim-devicons' "  didn't work on mac
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'dyng/ctrlsf.vim'
+
+" Rust lang
+Plug 'rust-lang/rust.vim'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'dense-analysis/ale'
+
 call plug#end()
+
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+"---------
+"" vim-gitgutter
+"---------
+" sign customization
+highlight GitGutterAdd ctermbg=29   guifg=#00875f
+highlight GitGutterChange ctermbg=29   guifg=#00875f
+highlight GitGutterDelete ctermbg=124  guifg=#af0000
+let g:gitgutter_sign_modified = 'M'
+
+"---------
+"" nerdtree-syntax-highlight
+"---------
+let g:NERDTreeFileExtensionHighlightFullName = 1
+let g:NERDTreeExactMatchHighlightFullName = 1
+let g:NERDTreePatternMatchHighlightFullName = 1
+
+"---------
+"" nerdtree-git-plugin
+"---------
+let g:NERDTreeGitStatusIndicatorMapCustom = {
+                    \ 'Modified'  :'M',
+                    \ 'Dirty'     :'M', 
+                    \ }
+"let g:NERDTreeGitStatusIndicatorMapCustom = {
+"                    \ 'Modified'  :'✹',
+"                \ 'Staged'    :'✚',
+"                \ 'Untracked' :'✭',
+"                \ 'Renamed'   :'➜',
+"                \ 'Unmerged'  :'═',
+"                \ 'Deleted'   :'✖',
+"                \ 'Dirty'     :'✗',
+"                \ 'Ignored'   :'☒',
+"                \ 'Clean'     :'✔︎',
+"                \ 'Unknown'   :'?',
+"                \ }
 
 "---------
 "" NERDTree
@@ -57,12 +120,14 @@ nmap     <C-F> <Plug>CtrlSFCwordPath
 "nnoremap <C-F>o :CtrlSFOpen<CR>
 nnoremap <C-F><C-F> :CtrlSFToggle<CR>
 "inoremap <C-F>t <Esc>:CtrlSFToggle<CR>
+
 " compact view
 let g:ctrlsf_default_view_mode = 'compact'
 " focus at search result
 let g:ctrlsf_auto_focus = {
     \ 'at': 'start',
     \ }
+
 "--------
 "" help function
 "--------
