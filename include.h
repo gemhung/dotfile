@@ -23,7 +23,7 @@ template <typename T> bool chkMin(T &x, T y) { return (y < x) ? x = y, 1 : 0; }
 template<class T>
 using vec = vector<T>; // Ex: vec<std::pair<int, int>
 #define all(v) v.begin(), v.end()
-
+#define mn(v) const int m = v.size(), n = v[0].size()
 
 #include <string>
 #include <vector>
