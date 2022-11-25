@@ -18,8 +18,8 @@ constexpr int dir[] = {1,0,-1,0,1};
 #define fi first
 #define se second
 #define mp make_pair
-template <typename T> bool chkMax(T &x, T y) { return (y > x) ? x = y, 1 : 0; }
-template <typename T> bool chkMin(T &x, T y) { return (y < x) ? x = y, 1 : 0; }
+template <typename T> bool chkMax(T &x, T y) { return (x < y) ? x = y, 1 : 0; }
+template <typename T> bool chkMin(T &x, T y) { return (x > y) ? x = y, 1 : 0; }
 template<class T>
 using vec = vector<T>; // Ex: vec<std::pair<int, int>
 #define all(v) v.begin(), v.end()
