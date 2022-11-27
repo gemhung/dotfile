@@ -8,7 +8,9 @@ using TLLL = std::tuple<ll, ll, ll>;
 using PII = std::pair<int, int>;
 using PLL = std::pair<long, long>;
 using PSI = std::pair<string, int>;
-using PSL = std::pair<string, long long>;
+using PIS = std::pair<int, string>;
+using PSL = std::pair<string, ll>;
+using PLS = std::pair<ll, string>;
 constexpr int dir[] = {1,0,-1,0,1};
 #define mem(v, init) memset(v, (init), sizeof(v))
 #define RREP(i,n) for(ll i=(ll)(n)-1;i>=0;i--)
