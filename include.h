@@ -27,6 +27,60 @@ using vec = vector<T>; // Ex: vec<std::pair<int, int>
 #define all(v) v.begin(), v.end()
 #define mn(v) const int m = v.size(), n = v[0].size()
 
+// ================ split string with ' ' into vector<string> ==================
+    template <typename Out>
+    void split(const std::string &s, char delim, Out result) {
+        std::istringstream iss(s);
+        std::string item;
+        while (std::getline(iss, item, delim)) {
+            *result++ = item;
+        }
+    }
+
+    std::vector<std::string> split(const std::string &s, char delim) {
+        std::vector<std::string> elems;
+        split(s, delim, std::back_inserter(elems));
+        return elems;
+    }
+    
+============== math =============================
+long long mul(long long a, long long b) {
+    return a * b % MOD;
+}
+
+long long power(long long base, long long exp = MOD-2) {
+    long long res = 1, y = base;
+    while (exp) {
+        if (exp&1) res = mul(res, y);
+        y = mul(y, y);
+        exp >>= 1;
+    }
+    return res;
+}
+
+struct math {
+    vector<long long> fact, inv;
+    
+    math(int n = 1) {
+        fact.resize(n+1);
+        inv.resize(n+1);
+        fact[0] = inv[0] = 1;
+        for (int i=1; i<=n; i++) {
+            fact[i] = mul(fact[i-1], i);
+            inv[i] = power(fact[i]);
+        }
+    }
+
+    long long comb(int n, int k) {
+        return mul(mul(fact[n], inv[k]), inv[n-k]);
+    }
+
+    long long perm(int n, int k) {
+        return mul(fact[n], inv[n-k]);
+    }
+
+} 
+
 ============== binary index tree ================
 constexpr int static max_n = 50001;
 long long bt[max_n + 1] = {};
