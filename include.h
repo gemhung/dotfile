@@ -27,6 +27,37 @@ using vec = vector<T>; // Ex: vec<std::pair<int, int>
 #define all(v) v.begin(), v.end()
 #define mn(v) const int m = v.size(), n = v[0].size()
 
+// ================ is prime =====================
+bool isPrime(int number){
+
+    if(number < 2) return false;
+    if(number == 2) return true;
+    if(number % 2 == 0) return false;
+    for(int i=3; (i*i)<=number; i+=2){
+        if(number % i == 0 ) return false;
+    }
+    return true;
+}
+
+// ================ all prime number ===============
+    vector<int> all_primes(int n) {
+       vector<int> ret;
+       while (n%2 == 0){
+           ret.push_back(2);
+           n = n/2;
+       }
+       for (int i = 3; i <= sqrt(n); i = i+2){
+          while (n%i == 0){
+             ret.push_back(i);
+             n = n/i;
+          }
+       }
+        
+       if (n > 2)
+           ret.push_back(n);
+	    
+	    return ret;
+    }
 // ================ split string with ' ' into vector<string> ==================
     template <typename Out>
     void split(const std::string &s, char delim, Out result) {
