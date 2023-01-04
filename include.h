@@ -1,8 +1,8 @@
 const int mod = 1e9+7;
+const int MOD = 1e9+7;
+constexpr int dir[] = {1,0,-1,0,1};
 using LL = long long;
 using ll = long long;
-template<class ...Args>
-using T = std::tuple<Args...>;
 using TIII = std::tuple<int, int, int>;
 using TLLL = std::tuple<ll, ll, ll>;
 using PII = std::pair<int, int>;
@@ -11,22 +11,25 @@ using PSI = std::pair<string, int>;
 using PIS = std::pair<int, string>;
 using PSL = std::pair<string, ll>;
 using PLS = std::pair<ll, string>;
-constexpr int dir[] = {1,0,-1,0,1};
-#define mem(v, init) memset(v, (init), sizeof(v))
+template<class ...Args> using T = std::tuple<Args...>;
+template<class T> using vec = vector<T>; // Ex: vec<std::pair<int, int>
+template<typename T> using min_heap = priority_queue<T, vec<T>, std::greater<T>>;
+template<typename T> using max_heap = priority_queue<T>;
+template<typename T> bool chkmin(T &x, T y) { return (x < y) ? x = y, 1 : 0; }
+template<typename T> bool chkmax(T &x, T y) { return (x > y) ? x = y, 1 : 0; }
+#define MEMSET(v, init) memset(v, (init), sizeof(v))
 #define RREP(i,n) for(ll i=(ll)(n)-1;i>=0;i--)
 #define REP(i,m,n) for(ll i=(ll)(m);i<(ll)(n);i++)
+#define FOR(i,m,n) for(ll i=(ll)(m);i<(ll)(n);i++)
 #define REPN(n) for(;(ll)n;n--)
 #define pb push_back
 #define fi first
 #define se second
 #define mp make_pair
-template <typename T> bool chkmin(T &x, T y) { return (x < y) ? x = y, 1 : 0; }
-template <typename T> bool chkmax(T &x, T y) { return (x > y) ? x = y, 1 : 0; }
-template<class T>
-using vec = vector<T>; // Ex: vec<std::pair<int, int>
+#define PAIR make_pair
+#define TUPLE make_tuple
 #define all(v) v.begin(), v.end()
 #define mn(v) const int m = v.size(), n = v[0].size()
-
 // ================ is prime =====================
 bool isPrime(int number){
 
