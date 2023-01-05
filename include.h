@@ -11,15 +11,18 @@ using PSI = std::pair<string, int>;
 using PIS = std::pair<int, string>;
 using PSL = std::pair<string, ll>;
 using PLS = std::pair<ll, string>;
-template<class ...Args> using T = std::tuple<Args...>;
-template<class T> using vec = vector<T>; // Ex: vec<std::pair<int, int>
-template<typename T> using min_heap = priority_queue<T, vec<T>, std::greater<T>>;
-template<typename T> using max_heap = priority_queue<T>;
+template<typename ...Args> using T = std::tuple<Args...>;
+template<typename T> using VEC = vector<T>; // Ex: vec<std::pair<int, int>
+template<typename T> using VV = VEC<VEC<T>>;
+template<typename T> using HEAP_MIN = priority_queue<T, vector<T>, std::greater<T>>;
+template<typename T> using HEAP_MAX = priority_queue<T>;
+template<typename T> using USET = std::unordered_set<T>;
+template<typename T1, typename T2> using UMAP = std::unordered_map<T1, T2>;
 template<typename T> bool chkmin(T &x, T y) { return (x < y) ? x = y, 1 : 0; }
 template<typename T> bool chkmax(T &x, T y) { return (x > y) ? x = y, 1 : 0; }
 #define MEMSET(v, init) memset(v, (init), sizeof(v))
+#define MEM(v) MEMSET(v, -1)
 #define RREP(i,n) for(ll i=(ll)(n)-1;i>=0;i--)
-#define REP(i,m,n) for(ll i=(ll)(m);i<(ll)(n);i++)
 #define FOR(i,m,n) for(ll i=(ll)(m);i<(ll)(n);i++)
 #define REPN(n) for(;(ll)n;n--)
 #define pb push_back
@@ -29,7 +32,8 @@ template<typename T> bool chkmax(T &x, T y) { return (x > y) ? x = y, 1 : 0; }
 #define PAIR make_pair
 #define TUPLE make_tuple
 #define all(v) v.begin(), v.end()
-#define mn(v) const int m = v.size(), n = v[0].size()
+#define MN(v) const int m = v.size(), n = v[0].size()
+
 // ================ is prime =====================
 bool isPrime(int number){
 
