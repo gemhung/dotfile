@@ -1,7 +1,8 @@
 const int mod = 1e9+7;
 const int MOD = 1e9+7;
 constexpr int dir[] = {1,0,-1,0,1};
-bool invalid(int x, int y, int m, int n) {return x < 0 || x == m || y < 0 || y == n;}
+bool invalid(int x, int y, int m, int n) {return x < 0 || x >= m || y < 0 || y >= n;}
+bool valid(int x, int y, int m, int n) {return x >=0 && x< m && y >= 0 && y < n;}
 using LL = long long;
 using ll = long long;
 using TIII = std::tuple<int, int, int>;
