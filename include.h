@@ -34,11 +34,11 @@ template<typename T> bool chkmax(T &x, T y) { return (x > y) ? x = y, 1 : 0; }
 #define PAIR make_pair
 #define TUPLE make_tuple
 #define all(v) v.begin(), v.end()
+#define N(v) const int n = v.size()
 #define MN(v) const int m = v.size(), n = v[0].size()
 
 // ================ is prime =====================
 bool isPrime(int number){
-
     if(number < 2) return false;
     if(number == 2) return true;
     if(number % 2 == 0) return false;
