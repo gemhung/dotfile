@@ -15,6 +15,7 @@ using PSL = std::pair<string, ll>;
 using PLS = std::pair<ll, string>;
 template<typename ...Args> using T = std::tuple<Args...>;
 template<typename T> using VEC = vector<T>; // Ex: vec<std::pair<int, int>
+template<typename T> using V = vector<T>; // Ex: vec<std::pair<int, int>
 template<typename T> using VV = VEC<VEC<T>>;
 template<typename T> using HEAP_MIN = priority_queue<T, vector<T>, std::greater<T>>;
 template<typename T> using HEAP_MAX = priority_queue<T>;
