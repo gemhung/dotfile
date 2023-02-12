@@ -85,6 +85,7 @@ bool isPrime(int number){
     }
     
 ============== math =============================
+const int MOD = 1e9+7;
 long long mul(long long a, long long b) {
     return a * b % MOD;
 }
