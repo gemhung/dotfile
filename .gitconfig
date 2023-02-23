@@ -1,0 +1,9 @@
+[user]
+	name = gem
+[alias]
+    uu = status -u
+    ck = checkout
+    graph = log --graph --abbrev-commit --date=relative --pretty=format:'%C(cyan)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(auto)-%d%C(reset) %C(dim white)%an%C(reset)'
+[core]
+    editor = vim
+    excludesfile = ~/.gitignore_global

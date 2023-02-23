@@ -1,0 +1,5 @@
+# Ignore vim temp files
+.*.sw?
+
+# rust binary default folder
+target
