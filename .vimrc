@@ -21,6 +21,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'dyng/ctrlsf.vim' " Search
 Plug 'rust-lang/rust.vim'
 Plug 'dense-analysis/ale'                           " Find errors
+Plug 'ervandew/supertab'
 "Plug 'neoclide/coc.nvim', {'branch': 'release'}    " Not good for performance
 "Plug 'ryanoasis/vim-devicons'                      " Didn't work on mac
 call plug#end()
