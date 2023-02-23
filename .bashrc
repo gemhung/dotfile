@@ -21,19 +21,13 @@ if [ -f ~/.ssh-agent ]; then
     fi
 fi
 
-alias cdoms='cd /home/AD/chihhan.hung/Documents/dragonlair/mamamia/oms'
-alias worknote='vim /home/AD/chihhan.hung/Documents/worknote'
 alias dk='docker'
 alias dkp='docker container ps -a'
-alias cdashbringer='cd /home/AD/chihhan.hung/Documents/ashbringer'
 alias ss='gnome-control-center --overview'
-#alias code='/home/AD/chihhan.hung/Applications/VSCode-linux-x64/code .'
-alias cdashbringer='cd /home/AD/chihhan.hung/Documents/dragonlair/ashbringer'
 alias hh='history'
 
 alias gg='git graph --all'
 alias code='~/Applications/VSCode-linux-x64/code'
-#alias redis-server='/home/AD/chihhan.hung/Applications/redis-5.0.5/src/redis-server'
 alias cc='clear'
 alias bb='cargo build'
 alias bbn='cargo +nightly build'
@@ -41,7 +35,6 @@ alias rrn='cargo +nightly run'
 alias vimlog='vim -c "%s/\e\[[0-9;]\+[mK]//g" -c ":set nowrap" -c ":set number" -c ":set cursorline"'
 
 
-PATH=/home/AD/chihhan.hung/Documents/dragonlair/tokyoguru/vim/bin/:$PATH
 PATH=/opt/rh/devtoolset-7/root/usr/bin/:$PATH
 PATH=/opt/rh/rh-python36/root/usr/bin/:$PATH
 PATH=/opt/rh/rh-ruby25/root/usr/bin/:$PATH
@@ -60,15 +53,12 @@ export no_proxy=
 source /opt/rh/rh-ruby25/enable 
 
 export PATH="$HOME/.cargo/bin:$PATH"
-export PATH=/home/AD/chihhan.hung/Documents/dragonlair/u_have_no_idea_how_Im_capable_of/aws_install/bin:$PATH
 export PATH="$HOME/.local/bin:$PATH"
 
 eval `ssh-agent -s`
 ssh-add
 
 complete -W "\`grep -oE '^[a-zA-Z0-9_.-]+:([^=]|$)' ?akefile | sed 's/[^a-zA-Z0-9_.-]*$//'\`" make
-
-
 
 ## Colors?  Used for the prompt.
 #Regular text color
