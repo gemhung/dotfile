@@ -23,17 +23,7 @@ fi
 
 alias dk='docker'
 alias dkp='docker container ps -a'
-alias ss='gnome-control-center --overview'
-alias hh='history'
-
-alias gg='git graph --all'
-alias code='~/Applications/VSCode-linux-x64/code'
-alias cc='clear'
-alias bb='cargo build'
-alias bbn='cargo +nightly build'
-alias rrn='cargo +nightly run'
-alias vimlog='vim -c "%s/\e\[[0-9;]\+[mK]//g" -c ":set nowrap" -c ":set number" -c ":set cursorline"'
-
+alias ll='ls -al'
 
 PATH=/opt/rh/devtoolset-7/root/usr/bin/:$PATH
 PATH=/opt/rh/rh-python36/root/usr/bin/:$PATH
@@ -45,10 +35,6 @@ LD_LIBRARY_PATH=/opt/rh/rh-ruby25/root/usr/lib64/:$LD_LIBRARY_PATH
 export http_proxy=
 export https_proxy=
 export no_proxy=
-
-#export http_proxy=http://proxy.jp.sbibits.com:8080
-#export https_proxy=http://proxy.jp.sbibits.com:8080
-#export no_proxy=.jp.sbibits.com,.sbisec.int
 
 source /opt/rh/rh-ruby25/enable 
 
@@ -127,7 +113,6 @@ HC="${YELLOW}"
 RC="${BWHITE}"
 #default color
 DF='\[\e[0m\]'
-#PS1="${BGREEN}[${BMAGENTA}\u${BRED}@${HC}\h ${BCYAN}\W${DF}${BGREEN}] ${SC}${DF} "
 PS1="${BGREEN}[${BMAGENTA}\u${BRED}@${GREEN}\h ${BCYAN}\W${DF}${BGREEN}] ${SC}${DF}${HC}$(parse_git_branch)${DF} "
 }
 
