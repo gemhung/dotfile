@@ -38,6 +38,26 @@ template<typename T> bool chkmax(T &x, T y) { return (x > y) ? x = y, 1 : 0; }
 #define N(v) const int n = v.size()
 #define MN(v) const int m = v.size(), n = v[0].size()
 
+// ================ find all factors
+    vector<int> help(int n)
+    {
+        // Note that this loop runs till square root
+        vector<int> ret;
+        for (int i=1; i<=std::sqrt(n); i++)
+        {
+            if (n%i == 0){
+                // If divisors are equal, print only one
+                if (n/i == i)
+                    ret.push_back(i);
+                else{ // Otherwise print both
+                    ret.push_back(i);
+                    ret.push_back(n/i);
+                }
+            }
+        }
+        
+        return ret;
+    }
 // ================ is prime =====================
 bool isPrime(int number){
     if(number < 2) return false;
