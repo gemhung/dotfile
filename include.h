@@ -1,3 +1,20 @@
+// ============================ short version =========================
+const int mod = 1e9+7;
+using ll = long long;
+template<typename ...Args> using TU = std::tuple<Args...>;
+template<typename T> using VEC = vector<T>; // Ex: vec<std::pair<int, int>
+template<typename T> using HEAP_MIN = priority_queue<T, vector<T>, std::greater<T>>;
+template<typename T> using HEAP_MAX = priority_queue<T>;
+template<typename T> using USET = std::unordered_set<T>;
+template<typename T1, typename T2> using PA = std::pair<T1,T2>; // std::pair<int, int> = PA<int, int> 
+template<typename T1, typename T2> using UMAP = std::unordered_map<T1, T2>;
+#define pb push_back
+#define fi first
+#define se second
+#define all(v) v.begin(), v.end()
+#define FOR(i,m,n) for(ll i=(ll)(m);i<(ll)(n);i++)
+
+// ============================ long version ==========================
 const int mod = 1e9+7;
 const int MOD = 1e9+7;
 constexpr int dir[] = {1,0,-1,0,1};
@@ -13,10 +30,11 @@ using PSI = std::pair<string, int>;
 using PIS = std::pair<int, string>;
 using PSL = std::pair<string, ll>;
 using PLS = std::pair<ll, string>;
-template<typename ...Args> using T = std::tuple<Args...>;
+template<typename ...Args> using TU = std::tuple<Args...>;
 template<typename T> using VEC = vector<T>; // Ex: vec<std::pair<int, int>
 template<typename T> using V = vector<T>; // Ex: vec<std::pair<int, int>
 template<typename T> using VV = VEC<VEC<T>>;
+template<typename T1, typename T2> using PA = std::pair<T1,T2>; // std::pair<int, int> = PA<int, int> 
 template<typename T> using HEAP_MIN = priority_queue<T, vector<T>, std::greater<T>>;
 template<typename T> using HEAP_MAX = priority_queue<T>;
 template<typename T> using USET = std::unordered_set<T>;
