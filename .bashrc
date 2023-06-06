@@ -5,6 +5,11 @@ if [ -f /etc/bashrc ]; then
 	. /etc/bashrc
 fi
 
+# Enable Git auto-complete
+if [ -f ~/.git-completion.bash ]; then
+      . ~/.git-completion.bash
+fi
+
 # User specific aliases and functions
 HISTSIZE=1000000
 HISTFILESIZE=1000000
@@ -27,16 +32,16 @@ alias ll='ls -al'
 
 PATH=/opt/rh/devtoolset-7/root/usr/bin/:$PATH
 PATH=/opt/rh/rh-python36/root/usr/bin/:$PATH
-PATH=/opt/rh/rh-ruby25/root/usr/bin/:$PATH
+#PATH=/opt/rh/rh-ruby25/root/usr/bin/:$PATH
 PATH=/opt/rh/rh-ruby25/root/usr/local/bin/:$PATH
 LD_LIBRARY_PATH=/opt/rh/rh-python36/root/usr/lib64/:$LD_LIBRARY_PATH
-LD_LIBRARY_PATH=/opt/rh/rh-ruby25/root/usr/lib64/:$LD_LIBRARY_PATH
+#LD_LIBRARY_PATH=/opt/rh/rh-ruby25/root/usr/lib64/:$LD_LIBRARY_PATH
 
 export http_proxy=
 export https_proxy=
 export no_proxy=
 
-source /opt/rh/rh-ruby25/enable 
+#source /opt/rh/rh-ruby25/enable 
 
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
@@ -44,7 +49,16 @@ export PATH="$HOME/.local/bin:$PATH"
 eval `ssh-agent -s`
 ssh-add
 
+
+
 complete -W "\`grep -oE '^[a-zA-Z0-9_.-]+:([^=]|$)' ?akefile | sed 's/[^a-zA-Z0-9_.-]*$//'\`" make
+
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+export CLICOLOR=1
+export LSCOLORS="gxfxcxdxbxegedabagacad"
+
+set rtp+=/opt/homebrew/opt/fzf
 
 ## Colors?  Used for the prompt.
 #Regular text color
@@ -94,7 +108,7 @@ function smile_prompt
 if [ "$?" -eq "0" ]
 then
 #smiley
-SC="${BGBLUE}good-job"
+SC="${BGCYAN}good-job"
 else
 #frowney
 SC="${BRED}oops!"
@@ -121,3 +135,8 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+
+. "$HOME/.cargo/env"
+
+
