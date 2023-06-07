@@ -1,3 +1,68 @@
+"   ____            _         ____             __ _
+" " _____ _
+" "|_   _| |__   ___ _ __ ___   ___
+" "  | | | '_ \ / _ \ '_ ` _ \ / _ \
+" "  | | | | | |  __/ | | | | |  __/
+" "  |_| |_| |_|\___|_| |_| |_|\___|
+"
+color desert
+
+
+" "| __ )  __ _ ___(_) ___   / ___|___  _ __  / _(_) __ _
+" "|  _ \ / _` / __| |/ __| | |   / _ \| '_ \| |_| |/ _` |
+" "| |_) | (_| \__ \ | (__  | |__| (_) | | | |  _| | (_| |
+" "|____/ \__,_|___/_|\___|  \____\___/|_| |_|_| |_|\__, |
+" "                                                 |___/
+set backspace=indent,eol,start  " 統一 backsapce 功能
+set colorcolumn=150
+set cursorline
+set fileencodings=utf-8,default,big5,ucs-bom,latin1
+set hlsearch                    " 顏色標記被搜尋的文字
+set incsearch                   " 往後搜尋
+set expandtab
+set encoding=utf-8
+set noerrorbells
+set number                      " 顯示行數
+set relativenumber
+set scrolloff=8                 " 游標距離上下 N 行開始捲動螢幕
+set shiftwidth=4                " tab 寬度
+set shellcmdflag=-ic
+set shellcmdflag=-c
+set showcmd                     " 顯示命令按鍵
+set signcolumn=yes
+set smartcase                   " 搜尋時自動判斷是否區分大小寫
+set smartindent                 " 自動縮排
+set tabstop=4 softtabstop=4     " tab寬度
+set updatetime=400
+syntax enable
+filetype plugin indent on
+" Toggle hightlight search
+nnoremap <F2> :set hlsearch!<CR>
+" Toggle scrollbind
+nnoremap <F3> :windo set cursorbind!<CR>:windo set scrollbind!<CR>:wincmd p<CR>
+" Highlight all instances of word under cursor, when idle.
+" " Useful when studying strange source code.
+" " Type z/ to toggle highlighting on/off.
+nnoremap z/ :if AutoHighlightToggle()<Bar>set hls<Bar>endif<CR>
+function! AutoHighlightToggle()
+    let @/ = ''
+    if exists('#auto_highlight')
+        au! auto_highlight
+        augroup! auto_highlight
+        setl updatetime=4000
+        echo 'Highlight current word: off'
+        return 0
+    else
+        augroup auto_highlight
+            au!
+            au CursorHold * let @/ ='\V\<'.escape(expand('<cword>'),'\').'\>'
+        augroup end
+        setl updatetime=500
+        echo'Highlight current word:ON'
+        return 1
+    endif
+endfunction
+
 "         _                       _
 " "__   _(_)_ __ ___        _ __ | |_   _  __ _
 " "\ \ / / | '_ ` _ \ _____| '_ \| | | | |/ _` |
@@ -20,13 +85,13 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " FZF
 Plug 'junegunn/fzf.vim'                             " FZF
 Plug 'dyng/ctrlsf.vim'                              " Search
 Plug 'rust-lang/rust.vim'                           " Rust
-Plug 'dense-analysis/ale'                           " Find errors
 Plug 'ervandew/supertab'                            " AutoComplete
-Plug 'gemhung/rust-aledetail-pretty.vim'            " AutoComplete
 Plug 'itchyny/lightline.vim'                        " Status bar
 Plug 'itchyny/vim-gitbranch'                        " Status bar
-"Plug 'neoclide/coc.nvim', {'branch': 'release'}    " !Not good for performance
-"Plug 'ryanoasis/vim-devicons'                      " !Didn't work on mac
+Plug 'neoclide/coc.nvim', {'branch': 'release'}    " !Not good for performance
+" Plug 'ryanoasis/vim-devicons'                      " !Didn't work on mac
+"Plug 'dense-analysis/ale'                           " Find errors
+"Plug 'gemhung/rust-aledetail-pretty.vim'            " AutoComplete
 call plug#end()
 
 " " ____  _             _              ____             __ _
@@ -42,7 +107,7 @@ let g:lightline = {
     \ 'colorscheme': 'one',
     \ 'active': {
     \   'left': [ [ 'mode', 'paste' ],
-    \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+    \             [ 'gitbranch', 'readonly', 'absolutepath', 'modified' ] ]
     \ },
     \ 'component_function': {
     \   'gitbranch': 'gitbranch#name',
@@ -70,6 +135,10 @@ let g:ale_lint_on_save = 1
 let g:ale_floating_window_border  = ['│', '─', '╭', '╮', '╯', '╰', '│', '─']
 "For wide montior
 "let g:ale_list_vertical = 1
+let g:ale_linters = {'rust': ['analyzer']}
+let g:ale_set_highlights = 0
+let g:ale_sign_error = 'XX'
+
 
 "" NERDTree
 " auto show with vim
@@ -145,72 +214,18 @@ let g:ctrlsf_auto_focus = {
     \ }
 
 "" COC
-"nmap <silent> gd <Plug>(coc-definition)
-"nmap <silent> gy <Plug>(coc-type-definition)
-"nmap <silent> gi <Plug>(coc-implementation)
-"nmap <silent> gr <Plug>(coc-references)
-
-" " _____ _
-" "|_   _| |__   ___ _ __ ___   ___
-" "  | | | '_ \ / _ \ '_ ` _ \ / _ \
-" "  | | | | | |  __/ | | | | |  __/
-" "  |_| |_| |_|\___|_| |_| |_|\___|
-"
-color desert
-
-"   ____            _         ____             __ _
-" "| __ )  __ _ ___(_) ___   / ___|___  _ __  / _(_) __ _
-" "|  _ \ / _` / __| |/ __| | |   / _ \| '_ \| |_| |/ _` |
-" "| |_) | (_| \__ \ | (__  | |__| (_) | | | |  _| | (_| |
-" "|____/ \__,_|___/_|\___|  \____\___/|_| |_|_| |_|\__, |
-" "                                                 |___/
-set backspace=indent,eol,start  " 統一 backsapce 功能
-set colorcolumn=150
-set cursorline
-set fileencodings=utf-8,default,big5,ucs-bom,latin1
-set hlsearch                    " 顏色標記被搜尋的文字
-set incsearch                   " 往後搜尋
-set expandtab
-set encoding=utf-8
-set noerrorbells
-set number                      " 顯示行數
-set relativenumber
-set scrolloff=8                 " 游標距離上下 N 行開始捲動螢幕
-set shiftwidth=4                " tab 寬度
-set shellcmdflag=-ic
-set shellcmdflag=-c
-set showcmd                     " 顯示命令按鍵
-set signcolumn=yes
-set smartcase                   " 搜尋時自動判斷是否區分大小寫
-set smartindent                 " 自動縮排
-set tabstop=4 softtabstop=4     " tab寬度
-set updatetime=400
-syntax enable
-filetype plugin indent on
-" Toggle hightlight search
-nnoremap <F2> :set hlsearch!<CR>
-" Toggle scrollbind
-nnoremap <F3> :windo set cursorbind!<CR>:windo set scrollbind!<CR>:wincmd p<CR>
-" Highlight all instances of word under cursor, when idle.
-" " Useful when studying strange source code.
-" " Type z/ to toggle highlighting on/off.
-nnoremap z/ :if AutoHighlightToggle()<Bar>set hls<Bar>endif<CR>
-function! AutoHighlightToggle()
-    let @/ = ''
-    if exists('#auto_highlight')
-        au! auto_highlight
-        augroup! auto_highlight
-        setl updatetime=4000
-        echo 'Highlight current word: off'
-        return 0
-    else
-        augroup auto_highlight
-            au!
-            au CursorHold * let @/ ='\V\<'.escape(expand('<cword>'),'\').'\>'
-        augroup end
-        setl updatetime=500
-        echo'Highlight current word:ON'
-        return 1
-    endif
-endfunction
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+" Inlay color
+hi CocInlayHint guifg=Grey ctermfg=Grey
+hi CocWarningSign ctermbg=DarkYellow
+hi CocInfoSign ctermbg=DarkYellow
+hi CocErrorSign ctermbg=Red
+hi CocHintSign ctermbg=DarkYellow
+nmap <silent> <C-J> :call CocAction('diagnosticNext')<cr>
+nmap <silent> <C-K> :call CocAction('diagnosticPrevious')<cr>
+" Toggle inlay
+nnoremap zi :CocCommand document.toggleInlayHint<CR>
 
