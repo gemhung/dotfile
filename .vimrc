@@ -6,7 +6,8 @@
 " "  |_| |_| |_|\___|_| |_| |_|\___|
 "
 "color desert
-color molokai
+"color molokai
+colorscheme molokai
 
 
 " "| __ )  __ _ ___(_) ___   / ___|___  _ __  / _(_) __ _
@@ -35,6 +36,8 @@ set smartcase                   " 搜尋時自動判斷是否區分大小寫
 set smartindent                 " 自動縮排
 set tabstop=4 softtabstop=4     " tab寬度
 set updatetime=400
+set noswapfile
+
 syntax enable
 filetype plugin indent on
 " Toggle hightlight search
@@ -44,7 +47,7 @@ nnoremap <F3> :windo set cursorbind!<CR>:windo set scrollbind!<CR>:wincmd p<CR>
 " Highlight all instances of word under cursor, when idle.
 " " Useful when studying strange source code.
 " " Type z/ to toggle highlighting on/off.
-nnoremap z/ :if AutoHighlightToggle()<Bar>set hls<Bar>endif<CR>
+nnoremap zw :if AutoHighlightToggle()<Bar>set hls<Bar>endif<CR>
 function! AutoHighlightToggle()
     let @/ = ''
     if exists('#auto_highlight')
@@ -90,7 +93,12 @@ Plug 'ervandew/supertab'                            " AutoComplete
 Plug 'itchyny/lightline.vim'                        " Status bar
 Plug 'itchyny/vim-gitbranch'                        " Status bar
 Plug 'neoclide/coc.nvim', {'branch': 'release'}    " !Not good for performance
-" Plug 'ryanoasis/vim-devicons'                      " !Didn't work on mac
+Plug 'ruanyl/vim-gh-line'                            " Get github link
+"Plug 'knsh14/vim-github-link'
+"Plug 'tpope/vim-fugitive'
+"Plug 'tpope/vim-rhubarb'
+
+Plug 'ryanoasis/vim-devicons'                      " !Didn't work on mac
 "Plug 'dense-analysis/ale'                           " Find errors
 "Plug 'gemhung/rust-aledetail-pretty.vim'            " AutoComplete
 call plug#end()
@@ -113,12 +121,22 @@ let g:lightline = {
     \ 'component_function': {
     \   'gitbranch': 'gitbranch#name',
     \   'modified': 'LightlineModified',
+    \   'filetype': 'MyFiletype',
+    \   'fileformat': 'MyFileformat',
     \ },
     \ }
 
 function! LightlineModified()
     let modified = &modified ? ' M' : ''
     return modified
+endfunction
+
+function! MyFiletype()
+  return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
+endfunction
+
+function! MyFileformat()
+  return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
 endfunction
 
 "" Ale
@@ -142,6 +160,7 @@ let g:ale_sign_error = 'XX'
 
 
 "" NERDTree
+let NERDTreeShowHidden=1
 " auto show with vim
 autocmd VimEnter * if !argc() | NERDTree | endif
 autocmd VimEnter * if argc() | NERDTreeFind | endif
@@ -182,9 +201,42 @@ let g:NERDTreeGitStatusIndicatorMapCustom = {
 "                \ }
 
 "" Nerdtree-syntax-highlight
+" you can add these colors to your .vimrc to help customizing
+let s:brown = "905532"
+let s:aqua =  "3AFFDB"
+let s:blue = "689FB6"
+let s:darkBlue = "44788E"
+let s:purple = "834F79"
+let s:lightPurple = "834F79"
+let s:red = "AE403F"
+let s:beige = "F5C06F"
+let s:yellow = "F09F17"
+let s:orange = "D4843E"
+let s:darkOrange = "F16529"
+let s:pink = "CB6F6F"
+let s:salmon = "EE6E73"
+let s:green = "8FAA54"
+let s:lightGreen = "31B53E"
+let s:white = "FFFFFF"
+let s:rspec_red = 'FE405F'
+let s:git_orange = 'F54D27'
+let g:NERDTreeExtensionHighlightColor = {} " this line is needed to avoid error
+let g:NERDTreeExtensionHighlightColor['css'] = s:blue " sets the color of css files to blue
+let g:NERDTreeExactMatchHighlightColor = {} " this line is needed to avoid error
+let g:NERDTreeExactMatchHighlightColor['.gitignore'] = s:git_orange " sets the color for .gitignore files
+let g:NERDTreeExactMatchHighlightColor['Cargo.toml'] = s:git_orange " sets the color for Cargo.toml files
+let g:NERDTreePatternMatchHighlightColor = {} " this line is needed to avoid error
+let g:NERDTreePatternMatchHighlightColor['.*_spec\.rb$'] = s:rspec_red " sets the color for files ending with _spec.rb
+let g:WebDevIconsDefaultFolderSymbolColor = s:beige " sets the color for folders that did not match any rule
+let g:WebDevIconsDefaultFileSymbolColor = s:blue " sets the color for files that did not match any rule
+
+let g:WebDevIconsDisableDefaultFolderSymbolColorFromNERDTreeDir = 1
+let g:WebDevIconsDisableDefaultFileSymbolColorFromNERDTreeFile = 1
 let g:NERDTreeFileExtensionHighlightFullName = 1
 let g:NERDTreeExactMatchHighlightFullName = 1
 let g:NERDTreePatternMatchHighlightFullName = 1
+let g:NERDTreeHighlightFolders = 1 " enables folder icon highlighting using exact match
+let g:NERDTreeHighlightFoldersFullName = 1 " highlights the folder name
 
 "" Vim-gitgutter (git diff)
 " sign customization
@@ -194,9 +246,10 @@ highlight GitGutterDelete ctermbg=124  guifg=#af0000
 let g:gitgutter_sign_modified = 'M'
 
 "" FZF
-nnoremap <C-p> :GFiles<CR>
+nnoremap <C-p> :Files<CR>
 let g:fzf_action = { 'enter': 'tab split' }
 set rtp+=/usr/local/opt/fzf
+let $FZF_DEFAULT_OPTS="--preview-window 'right:57%' --bind ctrl-y:preview-up,ctrl-e:preview-down,ctrl-u:preview-half-page-up,ctrl-d:preview-half-page-down"
 
 "" Ctrlsf
 vmap     <C-F> <Plug>CtrlSFVwordExec
@@ -229,4 +282,23 @@ nmap <silent> <C-J> :call CocAction('diagnosticNext')<cr>
 nmap <silent> <C-K> :call CocAction('diagnosticPrevious')<cr>
 " Toggle inlay
 nnoremap zi :CocCommand document.toggleInlayHint<CR>
+
+" vim-gh-line
+" also paste to clipboard
+let g:gh_open_command = 'fn() { echo "$@" | pbcopy; }; fn '
+
+"" Devicon
+let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+let g:DevIconsEnableFoldersOpenClose = 1
+let g:webdevicons_gui_glyph_fix = 1
+"let g:WebDevIconsNerdTreeGitPluginForceVAlign = 1
+let g:webdevicons_enable_nerdtree = 1
+let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+"let g:WebDevIconsNerdTreeAfterGlyphPadding = ' '
+"let g:WebDevIconsNerdTreeGitPluginForceVAlign = 1
+"let g:DevIconsEnableFolderExtensionPatternMatching = 1
+let g:webdevicons_conceal_nerdtree_brackets = 1
+let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+let g:WebDevIconsNerdTreeGitPluginForceVAlign = 1
+"let g:WebDevIconsNerdTreeBeforeGlyphPadding = '        '
 
