@@ -98,6 +98,7 @@ Plug 'ruanyl/vim-gh-line'                            " Get github link
 "Plug 'tpope/vim-fugitive'
 "Plug 'tpope/vim-rhubarb'
 
+"Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'ryanoasis/vim-devicons'                      " !Didn't work on mac
 "Plug 'dense-analysis/ale'                           " Find errors
 "Plug 'gemhung/rust-aledetail-pretty.vim'            " AutoComplete
@@ -172,8 +173,8 @@ nnoremap <silent> <C-n> :NERDTreeToggle <Bar> if &filetype ==# 'nerdtree' <Bar> 
 " Find where I am
 map me :NERDTreeFind<CR>
 " Swtich tabs
-map <Tab> :call CheckNerdTree(":tabnext")<CR>
-map <S-Tab> :call CheckNerdTree(":tabp")<CR>
+"map <Tab> :call CheckNerdTree(":tabnext")<CR>
+"map <S-Tab> :call CheckNerdTree(":tabp")<CR>
 function! CheckNerdTree(tab)
     execute a:tab
     NERDTreeFind
@@ -278,10 +279,22 @@ hi CocWarningSign ctermbg=DarkYellow
 hi CocInfoSign ctermbg=DarkYellow
 hi CocErrorSign ctermbg=Red
 hi CocHintSign ctermbg=DarkYellow
+" Navigate errors
 nmap <silent> <C-J> :call CocAction('diagnosticNext')<cr>
 nmap <silent> <C-K> :call CocAction('diagnosticPrevious')<cr>
 " Toggle inlay
 nnoremap zi :CocCommand document.toggleInlayHint<CR>
+nnoremap zr :CocListResume<CR>
+" Show documentation
+nnoremap <silent> gh :call <SID>show_documentation()<CR>
+function! s:show_documentation()
+  if &filetype == 'vim'
+    execute 'h '.expand('<cword>')
+  else
+    call CocActionAsync('doHover')
+  endif
+endfunction
+call coc#config('list', { 'maxPreviewHeight': 50 })
 
 " vim-gh-line
 " also paste to clipboard
@@ -302,3 +315,4 @@ let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 let g:WebDevIconsNerdTreeGitPluginForceVAlign = 1
 "let g:WebDevIconsNerdTreeBeforeGlyphPadding = '        '
 
+set previewheight=100
