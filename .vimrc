@@ -1,4 +1,3 @@
-"   ____            _         ____             __ _
 " " _____ _
 " "|_   _| |__   ___ _ __ ___   ___
 " "  | | | '_ \ / _ \ '_ ` _ \ / _ \
@@ -9,7 +8,7 @@
 "color molokai
 colorscheme molokai
 
-
+"   ____            _         ____             __ _
 " "| __ )  __ _ ___(_) ___   / ___|___  _ __  / _(_) __ _
 " "|  _ \ / _` / __| |/ __| | |   / _ \| '_ \| |_| |/ _` |
 " "| |_) | (_| \__ \ | (__  | |__| (_) | | | |  _| | (_| |
@@ -100,7 +99,9 @@ Plug 'ruanyl/vim-gh-line'                            " Get github link
 Plug 'ryanoasis/vim-devicons'                      " !Didn't work on mac
 "Plug 'dense-analysis/ale'                           " Find errors
 "Plug 'gemhung/rust-aledetail-pretty.vim'            " AutoComplete
+Plug 'christoomey/vim-tmux-navigator'                " Navigate between vim and tmux
 call plug#end()
+
 
 " " ____  _             _              ____             __ _
 " "|  _ \| |_   _  __ _(_)_ __  ___   / ___|___  _ __  / _(_) __ _
@@ -110,7 +111,7 @@ call plug#end()
 " "               |___/                                      |___/
 
 " " Lightline
-set noshowmode
+"set noshowmode
 let g:lightline = {
     \ 'colorscheme': 'one',
     \ 'active': {
@@ -285,8 +286,8 @@ hi CocNotificationProgress ctermfg=Yellow
 "hi CocHintSign      ctermbg=DarkYellow
 "hi CocHintSign      ctermbg=Red
 " Navigate errors
-nmap <silent> <C-J> :call CocAction('diagnosticNext')<cr>
-nmap <silent> <C-K> :call CocAction('diagnosticPrevious')<cr>
+"nmap <silent> <C-[> :call CocAction('diagnosticNext')<cr>
+"nmap <silent> <C-]> :call CocAction('diagnosticPrevious')<cr>
 " Toggle inlay
 nnoremap zi :CocCommand document.toggleInlayHint<CR>
 nnoremap zr :CocListResume<CR>
@@ -310,6 +311,16 @@ function! ShowDocumentation()
 endfunction
 call coc#config('list', { 'maxPreviewHeight': 50 })
 
+map <F3> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">" . " FG:" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"fg#")<CR>
+" a little more informative version of the above
+nmap <Leader>sI :call <SID>SynStack()<CR>
+
+function! <SID>SynStack()
+    if !exists("*synstack")
+        return
+    endif
+    echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+endfunc
 
 "CocWarningHighlight xxx cterm=underline ctermfg=3 gui=undercurl guifg=#EBCB8B
 "CocErrorHighlight xxx cterm=underline ctermfg=1 gui=undercurl guifg=#BF616A
@@ -565,3 +576,17 @@ let g:WebDevIconsNerdTreeGitPluginForceVAlign = 1
 "let g:WebDevIconsNerdTreeBeforeGlyphPadding = '        '
 
 set previewheight=100
+
+" vim-tmux-navigator
+"let g:tmux_navigator_no_mappings = 1
+"noremap ˙ :TmuxNavigateLeft<cr>
+"noremap ∆ :TmuxNavigateDown<cr>
+"noremap ˚ :TmuxNavigateUp<cr>
+"noremap ¬ :TmuxNavigateRight<cr>
+"noremap ∑ :TmuxNavigatePrevious<cr>
+"
+"noremap ˙ :TmuxNavigateLeft<cr>
+"noremap ∆ :TmuxNavigateDown<cr>
+"noremap <C-k> :TmuxNavigateUp<cr>
+"noremap ¬ :TmuxNavigateRight<cr>
+"noremap ∑ :TmuxNavigatePrevious<cr>
