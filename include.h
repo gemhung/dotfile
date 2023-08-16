@@ -131,7 +131,7 @@ bool isPrime(int number){
     return true;
 }
 
-// ================ all prime number ===============
+// ================ all prime factors ===============
     vector<int> all_primes(int n) {
        vector<int> ret;
        while (n%2 == 0){
@@ -150,6 +150,45 @@ bool isPrime(int number){
 	    
 	    return ret;
     }
+// ============== union-find, disjoint-set ==========
+class DSU {
+private:
+    vector<int> v, rank, count;
+public:
+    DSU(int n): 
+        v(vector<int>(n, -1)),
+        rank(vector<int>(n, -1)),
+        count(vector<int>(n, 1))
+    {
+        // empty constructor
+    }
+    int find(int i) {
+        if (v[i] != -1) {
+            auto r = find(v[i]);
+            v[i] = r;
+            return r;
+        }
+
+        return i;
+    }
+    void uni(int i, int j) {
+        auto r1 = find(i);
+        auto r2 = find(j);
+        if (r1 == r2) 
+            return;
+        count[r1] = count[r2] = count[r1] + count[r2];
+        if (rank[r1] < rank[r2]) 
+            v[r1] = r2;
+        else 
+            v[r2] = r1; 
+        if (rank[r1] == rank[r2]) 
+            ++rank[r1];
+    }
+    // how many verticles in a group in which x is
+    int size(int x) {
+        return count[find(x)];
+    }
+};
 // ================ split string with ' ' into vector<string> ==================
     template <typename Out>
     void split(const std::string &s, char delim, Out result) {
