@@ -1,18 +1,21 @@
 // ============================ short version =========================
 const int mod = 1e9+7;
+const int MOD = 1e9+7;
 using ll = long long;
-template<typename ...Args> using TU = std::tuple<Args...>;
+constexpr int dir[] = {1,0,-1,0,1};
 template<typename T> using VEC = vector<T>; // Ex: vec<std::pair<int, int>
 template<typename T> using HEAP_MIN = priority_queue<T, vector<T>, std::greater<T>>;
 template<typename T> using HEAP_MAX = priority_queue<T>;
 template<typename T> using USET = std::unordered_set<T>;
-template<typename T1, typename T2> using PA = std::pair<T1,T2>; // std::pair<int, int> = PA<int, int> 
 template<typename T1, typename T2> using UMAP = std::unordered_map<T1, T2>;
 #define pb push_back
+#define fi first
+#define se second
 #define all(v) v.begin(), v.end()
 #define FOR(i,m,n) for(ll i=(ll)(m);i<(ll)(n);i++)
 #define N(v) const int n = v.size()
 #define MN(v) const int m = v.size(), n = v[0].size()
+#define NM(v) const int m = v.size(), n = v[0].size()
 
 // ============================ long version ==========================
 const int mod = 1e9+7;
