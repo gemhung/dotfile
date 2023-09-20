@@ -247,7 +247,7 @@ struct math {
 
 } 
 
-============== binary index tree ================
+// ============== binary index tree ================
 constexpr int static max_n = 50001;
 long long bt[max_n + 1] = {};
 long long prefix_sum(int i){
@@ -261,10 +261,7 @@ void add(int i, int val){
         bt[i] += val;
 } 
 
-
-==================================================
-Merge sort technique
-
+// ============== Merge sort technique ==============
     void help(vector<int>& v,  int l, int r){
         if(l+1 == r)
             return;
@@ -286,8 +283,35 @@ Merge sort technique
         std::inplace_merge(v.begin()+l, v.begin()+mid, v.begin()+r);
     }
 
-=======================
- 
+// ======================= Range minimum query(rmq) =======================
+int tree[10000000] = {};
+int build(vector<int>& arr,int start,int end,int i){
+    if(start==end)
+        return tree[i]=start;
+    int q=start+(end-start)/2;
+    int left=build(arr,start,q,2*i+1);
+    int right=build(arr,q+1,end,2*i+2);
+
+    return tree[i]=arr[left]<arr[right]?left:right;
+}
+
+int query(vector<int>& arr,int start,int end,int low,int high,int i){ // start, end is the query range and low, high is the current range
+    if(start<=low&&high<=end)
+        return tree[i];
+    if(high<start||end<low)
+        return -1;
+    int q=(high+low)/2;
+    int left=query(arr,start,end,low,q,2*i+1);
+    int right=query(arr,start,end,q+1,high,2*i+2);
+    if(left==-1)
+        return right;
+    if(right==-1)
+        return left;
+
+    return arr[left]<arr[right]?left:right;
+}
+
+// =======================
 long largest_power(long N) {
     //changing all right side bits to 1.
     N = N | (N>>1);
