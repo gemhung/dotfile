@@ -1,0 +1,5 @@
+{
+    "rust-analyzer.updates.prompt" : false,
+    "inlayHint.display": true,
+}
+
