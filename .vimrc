@@ -37,6 +37,8 @@ set tabstop=4 softtabstop=4     " tab寬度
 set updatetime=400
 set noswapfile
 
+autocmd BufRead,BufNewFile *.htm,*.html setlocal tabstop=2 shiftwidth=2 softtabstop=2
+
 syntax enable
 filetype plugin indent on
 " Toggle hightlight search
@@ -86,10 +88,10 @@ Plug 'tiagofumo/vim-nerdtree-syntax-highlight'      " Nerdtree
 Plug 'airblade/vim-gitgutter'                       " Git diff
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " FZF
 Plug 'junegunn/fzf.vim'                             " FZF
-"Plug 'dyng/ctrlsf.vim'                              " Search
+Plug 'dyng/ctrlsf.vim'                              " Search
 Plug 'rust-lang/rust.vim'                           " Rust
 Plug 'ervandew/supertab'                            " AutoComplete
-Plug 'itchyny/lightline.vim'                        " Status bar
+"Plug 'itchyny/lightline.vim'                        " Status bar
 Plug 'itchyny/vim-gitbranch'                        " Status bar
 Plug 'neoclide/coc.nvim', {'branch': 'release'}    " !Not good for performance
 Plug 'ruanyl/vim-gh-line'                            " Get github link
@@ -247,6 +249,7 @@ let g:gitgutter_sign_modified = 'M'
 
 "" FZF
 nnoremap <C-p> :Files<CR>
+nnoremap <S-p> :Rg<CR>
 let g:fzf_action = { 'enter': 'tab split' }
 set rtp+=/usr/local/opt/fzf
 let $FZF_DEFAULT_OPTS="--preview-window 'right:57%' --bind ctrl-y:preview-up,ctrl-e:preview-down,ctrl-u:preview-half-page-up,ctrl-d:preview-half-page-down"
@@ -272,6 +275,8 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+nmap <silent> gn :call CocAction('diagnosticNext')<cr>
+nmap <silent> gp :call CocAction('diagnosticPrevious')<cr>
 " Inlay color
 hi CocInlayHint guifg=Grey ctermfg=Grey
 hi CocUnusedHighlight cterm=underline   ctermbg=16
@@ -286,8 +291,6 @@ hi CocNotificationProgress ctermfg=Yellow
 "hi CocHintSign      ctermbg=DarkYellow
 "hi CocHintSign      ctermbg=Red
 " Navigate errors
-"nmap <silent> <C-[> :call CocAction('diagnosticNext')<cr>
-"nmap <silent> <C-]> :call CocAction('diagnosticPrevious')<cr>
 " Toggle inlay
 nnoremap zi :CocCommand document.toggleInlayHint<CR>
 nnoremap zr :CocListResume<CR>
