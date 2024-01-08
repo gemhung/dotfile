@@ -29,6 +29,7 @@ fi
 alias dk='docker'
 alias dkp='docker container ps -a'
 alias ll='ls -al'
+alias ww='pbcopy'
 
 PATH=/opt/rh/devtoolset-7/root/usr/bin/:$PATH
 PATH=/opt/rh/rh-python36/root/usr/bin/:$PATH
@@ -59,6 +60,9 @@ export CLICOLOR=1
 export LSCOLORS="gxfxcxdxbxegedabagacad"
 
 set rtp+=/opt/homebrew/opt/fzf
+
+export LANG="en_US.UTF-8"
+
 
 ## Colors?  Used for the prompt.
 #Regular text color
@@ -140,3 +144,6 @@ export NVM_DIR="$HOME/.nvm"
 . "$HOME/.cargo/env"
 
 
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
