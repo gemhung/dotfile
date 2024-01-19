@@ -207,8 +207,23 @@ public:
         split(s, delim, std::back_inserter(elems));
         return elems;
     }
-    
-============== math =============================
+
+// ================ find all occurrence for some substring ==================
+    vector<int>help(string& str, string& sub) {
+
+        vector<int> positions; // holds all the positions that sub occurs within str
+
+        int pos = str.find(sub, 0);
+        while(pos != string::npos)
+        {
+            positions.push_back(pos);
+            pos = str.find(sub,pos+1);
+        }
+
+        return positions;
+    }
+
+// ============== math =============================
 const int MOD = 1e9+7;
 long long mul(long long a, long long b) {
     return a * b % MOD;
