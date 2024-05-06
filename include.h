@@ -343,6 +343,9 @@ long largest_power(long N) {
     return (N+1)>>1;
 }
 
+int right_most_index(int n) {
+    return ffs(n)-1; // 11100 return 2
+}
 
 =======================
 
