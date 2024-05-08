@@ -198,6 +198,30 @@ public:
         return this->group_size;
     }
 };
+struct Trie {
+    bool is_word = false;
+    string word = "";
+    int cnt = 0;
+    Trie* v[26] = {};
+
+    Trie() {
+        for(auto i = 0 ; i < 26; i++)
+            v[i] = nullptr;
+    }
+
+    void add(const string& s) {
+        auto root = this;
+        for(auto& c: s) {
+            if(!root->v[c-'a'])
+                root->v[c-'a'] = new Trie();
+            root = root->v[c-'a'];
+        }
+
+        root->is_word=true;
+        root->word = s;
+        root->cnt++;
+    }
+}
 // ================ split string with ' ' into vector<string> ==================
     template <typename Out>
     void split(const std::string &s, char delim, Out result) {
