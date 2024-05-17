@@ -162,8 +162,7 @@ public:
     DSU(int n): 
         v(vector<int>(n, -1)),
         rank(vector<int>(n, -1)),
-        count(vector<int>(n, 1)),
-        group_size(n)
+        count(vector<int>(n, 1))
     {
         // empty constructor
     }
@@ -188,14 +187,10 @@ public:
             v[r2] = r1; 
         if (rank[r1] == rank[r2]) 
             ++rank[r1];
-        group_size--;
     }
     // how many verticles in a group in which x is
     int size(int x) {
         return count[find(x)];
-    }
-    int groups() {
-        return this->group_size;
     }
 };
 struct Trie {
