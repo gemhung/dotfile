@@ -287,7 +287,7 @@ struct math {
 
 } 
 
-// ============== binary index tree ================
+// ============== binary index tree (sum) ================
 constexpr int static max_n = 50001;
 long long bt[max_n + 1] = {};
 long long prefix_sum(int i){
@@ -300,6 +300,24 @@ void add(int i, int val){
     for (i = i + 1; i <= max_n; i += i & (-i))
         bt[i] += val;
 } 
+
+// ============== binary index tree (max) ================
+class BIT {
+    vector<long long> bt;
+public:
+    BIT(int n): bt(vector<long long>(n+1, 0)) {
+    }
+    long long prefix_max(int i){
+        long long max = 0;
+        for (i = i + 1; i > 0; i -= i & (-i))
+            max = std::max(max, bt[i]);
+        return max;
+    }
+    void update(int i, int val){
+        for (i = i + 1; i < bt.size() ; i += i & (-i))
+            bt[i] = std::max(bt[i], (long long)val);
+    } 
+};
 
 // ============== Merge sort technique ==============
     void help(vector<int>& v,  int l, int r){
