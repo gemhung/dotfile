@@ -289,18 +289,18 @@ struct math {
 
 // ============== binary index tree (sum) ================
 class BIT {
+    vector<long long> bt;
 public:
-    BIT(){}
-    constexpr int static max_n = 100001;
-    long long bt[max_n + 1] = {};
+    BIT(int n): bt(vector<long long>(n+1, 0)) {
+    }
     long long prefix_sum(int i){
         long long sum = 0;
         for (i = i + 1; i > 0; i -= i & (-i))
-            sum += (int)bt[i];
+            sum += (int) bt[i];
         return sum;
     }
     void add(int i, int val){
-        for (i = i + 1; i <= max_n; i += i & (-i))
+        for (i = i + 1; i < bt.size() ; i += i & (-i))
             bt[i] += val;
     } 
 };
