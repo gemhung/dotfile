@@ -323,6 +323,87 @@ public:
     } 
 };
 
+// ============== segment tree (range max)===========
+class SegTreeNode{
+    public:
+    SegTreeNode* left = NULL;
+    SegTreeNode* right = NULL;
+    int start, end;
+    int info;  // the minimum value of the range
+    int pos;
+        
+    SegTreeNode(int a, int b, int val){  // init for range [a,b] with val
+        start = a, end = b;
+        if (a==b){
+            this->info = val;
+            this->pos = a;
+            return;
+        }        
+        int mid = (a+b)/2;
+        left = new SegTreeNode(a, mid, val);
+        right = new SegTreeNode(mid+1, b, val);            
+        if(left->info < right->info){
+            this->info = left->info;
+            this->pos = left->pos;
+        }else {
+            this->info = right->info;
+            this->pos = right->pos;
+        }
+    }    
+    SegTreeNode(int a, int b, vector<int>& target){  // init for range [a,b] with val
+        start = a, end = b;
+        if (a==b)
+        {
+            this->info = target[a];
+            this->pos = a;
+            return;
+        }        
+        int mid = (a+b)/2;
+        left = new SegTreeNode(a, mid, target);
+        right = new SegTreeNode(mid+1, b, target);            
+        if(left->info < right->info){
+            this->info = left->info;
+            this->pos = left->pos;
+        }else {
+            this->info = right->info;
+            this->pos = right->pos;
+        }
+    }    
+    
+    void updateRange(int a, int b, int val){     // set range [a,b] with val
+        if (b < start || a > end ) // not covered by [a,b] at all
+            return;        
+        if (a <= start && end <=b){  // completely covered within [a,b]
+            info = val;
+            pos = a;
+            return;
+        }
+        left->updateRange(a, b, val);
+        right->updateRange(a, b, val);
+        if(left->info < right->info){
+            info = left->info;
+            pos = left->pos;
+        }else {
+            info = right->info;
+            pos = right->pos;
+        }
+    }
+    
+    std::pair<int, int> queryRange(int a, int b){     // query the maximum value within range [a,b]
+        if (b < start || a > end )
+            return {INT_MAX, a};  // check with your own logic
+        if (a <= start && end <=b)
+            return {this->info, this->pos};  // check with your own logic
+        
+        auto L = this->left->queryRange(a, b);
+        auto R = this->right->queryRange(a, b);
+        if (L.first < R.first)
+            return L;
+        else
+            return R;
+    }  
+};
+
 // ============== Merge sort technique ==============
     void help(vector<int>& v,  int l, int r){
         if(l+1 == r)
