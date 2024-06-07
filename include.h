@@ -296,7 +296,7 @@ public:
     long long prefix_sum(int i){
         long long sum = 0;
         for (i = i + 1; i > 0; i -= i & (-i))
-            sum += (int) bt[i];
+            sum += bt[i];
         return sum;
     }
     void add(int i, int val){
@@ -304,6 +304,7 @@ public:
             bt[i] += val;
     } 
 };
+
 
 // ============== binary index tree (max) ================
 class BIT {
