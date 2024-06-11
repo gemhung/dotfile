@@ -405,6 +405,43 @@ class SegTreeNode{
     }  
 };
 
+// ============== segment tree (range freq)===========
+class SegTreeNode{
+    public:
+    SegTreeNode* m_left = NULL;
+    SegTreeNode* m_right = NULL;
+    int m_start;
+    int m_end;
+    std::unordered_map<int, int> m_map;
+        
+    // [a,b], inclusive
+    SegTreeNode(int start, int end, vector<int>& target) {  // init for range [a,b] with val
+        m_start = start, m_end = end;
+        if (start==end){
+            m_map[target[start]]++;
+            return;
+        }        
+        int mid = (start+end)/2;
+        this->m_left = new SegTreeNode(start, mid, target);
+        this->m_right = new SegTreeNode(mid+1, end, target);            
+        for(auto& [k, v] : m_left->m_map)
+            this->m_map[k]+=v;
+        for(auto& [k, v] : m_right->m_map)
+            this->m_map[k]+=v;
+    }    
+    
+    int query_range(int start, int end, int val){     // query the maximum value within range [a,b]
+        if (end < m_start || start > m_end )
+            return 0;
+        if (start <= m_start && m_end <=end)
+            return m_map[val];
+        auto L = this->m_left->query_range(start, end, val);
+        auto R = this->m_right->query_range(start, end, val);
+
+        return L+R;
+    }  
+};
+
 // ============== Merge sort technique ==============
     void help(vector<int>& v,  int l, int r){
         if(l+1 == r)
