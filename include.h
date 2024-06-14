@@ -288,6 +288,7 @@ struct math {
 } 
 
 // ============== binary index tree (sum) ================
+
 class BIT {
     vector<long long> bt;
 public:
@@ -299,8 +300,8 @@ public:
             sum += bt[i];
         return sum;
     }
-    void add(int i, int val){
-        for (i = i + 1; i < bt.size() ; i += i & (-i))
+    void add(int index, int val){
+        for (int i = index + 1; i < bt.size() ; i += i & (-i))
             bt[i] += val;
     } 
 };
@@ -318,8 +319,8 @@ public:
             max = std::max(max, bt[i]);
         return max;
     }
-    void update(int i, int val){
-        for (i = i + 1; i < bt.size() ; i += i & (-i))
+    void update(int index, int val){
+        for (int i = index + 1; i < bt.size() ; i += i & (-i))
             bt[i] = std::max(bt[i], (long long)val);
     } 
 };
