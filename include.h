@@ -310,7 +310,7 @@ public:
 class BIT {
     vector<long long> bt;
 public:
-    BIT(int n): bt(vector<long long>(n+1, 0)) {
+    BIT(int n): bt(vector<long long>(n, 0)) {
     }
     long long prefix_max(int i){
         long long max = 0;
