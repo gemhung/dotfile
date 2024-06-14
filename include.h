@@ -324,7 +324,7 @@ public:
     } 
 };
 
-// ============== segment tree (range max)===========
+// ============== segment tree (range min)===========
 class SegTreeNode{
     public:
     SegTreeNode* left = NULL;
