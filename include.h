@@ -444,6 +444,7 @@ class SegTreeNode{
 };
 
 // ============== Merge sort technique ==============
+    // [l, r), half-open 
     void help(vector<int>& v,  int l, int r){
         if(l+1 == r)
             return;
@@ -452,6 +453,7 @@ class SegTreeNode{
         help(v, l, mid);
         help(v, mid, r);
 
+        // write your logic
         for(auto i = l, j=mid ; i< mid && j < r;){
 		   // todo
             for ( ;i<mid && v[i] <= (long long)2*v[j]; i++);
@@ -461,7 +463,8 @@ class SegTreeNode{
             ret += mid-i;
             j++;
         }
-        
+
+	// regular merge
         std::inplace_merge(v.begin()+l, v.begin()+mid, v.begin()+r);
     }
 
