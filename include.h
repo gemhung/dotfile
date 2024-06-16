@@ -324,7 +324,66 @@ public:
             bt[i] = std::max(bt[i], (long long)val);
     } 
 };
+// ============== segment tree (range sum)
+class SegTreeNode{
+    public:
+    SegTreeNode* left = nullptr;
+    SegTreeNode* right = nullptr;
+    int m_start, m_end;
+    int m_info;  // the minimum value of the range
+    vector<int> inner;
+        
+    // [start, end], inclusively
+    SegTreeNode(int start, int end, int val){  // init for range [a,b] with val
+        m_start = start, m_end = end;
+        if (start==end){
+            this->m_info = val;
+            return;
+        }        
+        int mid = (start+end)/2;
+        left = new SegTreeNode(start, mid, val);
+        right = new SegTreeNode(mid+1, end, val);            
+        this->m_info = left->m_info + right->m_info;
+    }  
 
+    // [start ,end], inclusively
+    SegTreeNode(int start, int end, vector<int>& target){  // init for range [a,b] with val
+        m_start = start, m_end = end;
+        if (start==end)
+        {
+            this->m_info = target[start];
+            return;
+        }        
+        int mid = (start+end)/2;
+        left = new SegTreeNode(start, mid, target);
+        right = new SegTreeNode(mid+1, end, target);            
+        m_info = left->m_info + right->m_info;
+    } 
+    
+    // [start ,end], inclusively
+    void update_range(int start, int end, int val){     // set range [a,b] with val
+        if (end < m_start || start > m_end ) // not covered by [a,b] at all
+            return;        
+        if (start <= m_start && m_end <=end){  // completely covered within [a,b]
+            m_info = val;
+            return;
+        }
+        left->update_range(start, end, val);
+        right->update_range(start, end, val);
+        this->m_info = left->m_info + right->m_info;
+    }
+    // [start, end], inclsively
+    int query_range(int start, int end){     // query the maximum value within range [a,b]
+        if (end < m_start || start > m_end )
+            return 0;
+        if (start <= m_start && m_end <=end)
+            return this->m_info;
+        
+        auto L = this->left->query_range(start, end);
+        auto R = this->right->query_range(start, end);
+        return L + R;
+    }  
+};
 // ============== segment tree (range min)===========
 class SegTreeNode{
     public:
