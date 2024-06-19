@@ -586,6 +586,7 @@ int right_most_index(int n) {
 
 ========================
 const int mod = 1e9+7;
+#include <iostream>
 #include <string>
 #include <vector>
 #include <algorithm>
