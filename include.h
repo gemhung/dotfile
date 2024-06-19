@@ -583,7 +583,13 @@ int right_most_index(int n) {
 	•	Remove last bit A&(A-1)
 	•	Get all 1-bits ~0
 
-
+========================
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ * };
 ========================
 const int mod = 1e9+7;
 #include <iostream>
