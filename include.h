@@ -585,25 +585,27 @@ int right_most_index(int n) {
 
 
 ========================
+const int mod = 1e9+7;
 #include <string>
 #include <vector>
 #include <algorithm>
-#include<unordered_map>
-#include<map>
-#include<unordered_set>
-#include<set>
-#include<list>
-#include<deque>
-#include<queue>
-#include<stack>
-#include<tuple>
-#include<utility>
-#include<bitset>
-#include<stdio.h>
-#include<limits.h>
-#include<stdint.h>
-#include<cstring>
-#include<numeric>
+#include <unordered_map>
+#include <map>
+#include <unordered_set>
+#include <set>
+#include <list>
+#include <deque>
+#include <queue>
+#include <stack>
+#include <tuple>
+#include <utility>
+#include <bitset>
+#include <stdio.h>
+#include <limits.h>
+#include <stdint.h>
+#include <cstring>
+#include <numeric>
 #include <functional>
+#include <cassert>
 
 using namespace std;
