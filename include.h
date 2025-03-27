@@ -237,6 +237,28 @@ struct Trie {
         root->cnt++;
     }
 }
+
+int binary_string_to_decimal(string s){
+    int res =0;
+    for(int i=0; i < s.length(); i++) {
+        res = res*2 + (s[i]-'0');
+    }
+    return res;
+}    
+
+string to_binary_str(int num) {
+    string ret;
+    for(;num;) {
+        if(num % 2 == 0)
+            ret.push_back('0');
+        else 
+            ret.push_back('1');
+        num/=2;
+    }
+
+    std::reverse(begin(ret), end(ret));
+    return ret;
+}
 // ================ split string with ' ' into vector<string> ==================
     template <typename Out>
     void split(const std::string &s, char delim, Out result) {
