@@ -13,6 +13,7 @@
 "color molokai
 colorscheme molokai
 
+
 "   ____            _         ____             __ _
 " "| __ )  __ _ ___(_) ___   / ___|___  _ __  / _(_) __ _
 " "|  _ \ / _` / __| |/ __| | |   / _ \| '_ \| |_| |/ _` |
@@ -104,8 +105,8 @@ Plug 'airblade/vim-gitgutter'                       " Git diff
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " FZF
 Plug 'junegunn/fzf.vim'                             " FZF
 Plug 'dyng/ctrlsf.vim'                              " Search
-Plug 'rust-lang/rust.vim'                           " Rust
-Plug 'ervandew/supertab'                            " AutoComplete
+"Plug 'rust-lang/rust.vim'                           " Rust
+"Plug 'ervandew/supertab'                            " AutoComplete
 "Plug 'itchyny/lightline.vim'                        " Status bar
 "Plug 'itchyny/vim-gitbranch'                        " Status bar
 Plug 'neoclide/coc.nvim', {'branch': 'release'}    " !Not good for performance
@@ -125,6 +126,14 @@ Plug 'simrat39/rust-tools.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'saecki/crates.nvim', { 'tag': 'v0.4.0' }
 Plug 'lepture/vim-jinja'
+"Plug 'Colmbus72/slim'
+Plug 'andymass/vim-matchup'
+
+Plug 'octol/vim-cpp-enhanced-highlight'  "cpp
+Plug 'rhysd/vim-clang-format'            "cpp
+"Plug 'p00f/clangd_extensions.nvim'
+
+Plug 'lunacookies/vim-rust-syntax-ext'              " rust syntax highlight
 call plug#end()
 
 
@@ -134,6 +143,12 @@ call plug#end()
 " "|  __/| | |_| | (_| | | | | \__ \ | |__| (_) | | | |  _| | (_| |
 " "|_|   |_|\__,_|\__, |_|_| |_|___/  \____\___/|_| |_|_| |_|\__, |
 " "               |___/                                      |___/
+
+" vim-cpp-enhanced-highlight
+let g:cpp_class_scope_highlight = 1
+"let g:cpp_member_variable_highlight = 1
+let g:cpp_class_decl_highlight = 1
+let g:cpp_experimental_simple_template_highlight = 1
 
 " " Lightline
 "set noshowmode
@@ -188,23 +203,29 @@ endfunction
 let NERDTreeShowHidden=1
 " auto show with vim
 autocmd VimEnter * if !argc() | NvimTreeOpen | endif
-autocmd VimEnter * if argc() | NvimTreeFind | endif
+autocmd VimEnter * if argc() | NvimTreeFindFile | endif
 autocmd vimenter * wincmd p
 " Auto close nerdtree if it's last window
 "autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NvimTree') && b:NvimTree.isTabTree() | quit | endif
+
+"autocmd BufNewFile,BufRead,FileReadPre * NvimTreeFindFile! | wincmd p
+"autocmd BufNewFile,BufRead * NvimTreeFindFile | wincmd p
+
 " Toggle
 "nnoremap <silent> <C-n> :NERDTreeToggle <Bar> if &filetype ==# 'nerdtree' <Bar> wincmd p <Bar> endif<CR>
 nnoremap <silent> <C-n> :NvimTreeToggle<cr>
 " Find where I am
 nmap me :NvimTreeFindFile<CR>
+nmap fmt :RustFmt<CR>
+nmap fmtc :ClangFormat<CR>
 " Swtich tabs
 "map <Tab> :call CheckNerdTree(":tabnext")<CR>
 "map <S-Tab> :call CheckNerdTree(":tabp")<CR>
-function! CheckNerdTree(tab)
-    execute a:tab
-    NvimTreeFind
-    wincmd l
-endfunction
+"function! CheckNerdTree(tab)
+"    execute a:tab
+"    NvimTreeFindFile
+"    wincmd l
+"endfunction
 
 
 
@@ -274,7 +295,8 @@ let g:gitgutter_sign_modified = 'M'
 "" FZF
 nnoremap <C-p> :Files<CR>
 nnoremap <C-f> :RG<CR>
-let g:fzf_action = { 'enter': 'tab split' }
+"let g:fzf_action = { 'enter': 'tab split' }
+let g:fzf_action = { 'return': 'tab drop' }
 set rtp+=/usr/local/opt/fzf
 let $FZF_DEFAULT_OPTS="--preview-window 'right:57%' --bind ctrl-y:preview-up,ctrl-e:preview-down,ctrl-u:preview-half-page-up,ctrl-d:preview-half-page-down"
 
@@ -323,8 +345,10 @@ hi CocErrorFloat guifg=Red ctermfg=Red
 " Navigate errors
 " Toggle inlay
 "nnoremap zi :CocCommand document.toggleInlayHint<CR>
-nnoremap ze :RustEnableInlayHints<CR>
-nnoremap zd :RustDisableInlayHints<CR>
+nnoremap fly :CocCommand rust-analyzer.runFlycheck<CR>
+nnoremap ze :CocCommand document.toggleInlayHint<CR>
+"nnoremap ze :RustEnableInlayHints<CR>
+"nnoremap zd :RustDisableInlayHints<CR>
 nnoremap zr :CocListResume<CR>
 " Use K to show documentation in preview window
 nnoremap <silent> gh :call ShowDocumentation()<CR>
@@ -348,7 +372,9 @@ call coc#config('list', { 'maxPreviewHeight': 50 })
 
 map <F3> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">" . " FG:" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"fg#")<CR>
 " a little more informative version of the above
-nmap <Leader>sI :call <SID>SynStack()<CR>
+"nmap <Leader>sI :call <SID>SynStack()<CR>
+nmap <Leader>ss :call <SID>SynStack()<CR>
+nmap <Leader>sg :call <SID>SynGroup()<CR>
 
 function! <SID>SynStack()
     if !exists("*synstack")
@@ -356,6 +382,11 @@ function! <SID>SynStack()
     endif
     echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunc
+
+function! <SID>SynGroup()
+    let l:s = synID(line('.'), col('.'), 1)
+    echo synIDattr(l:s, 'name') . ' -> ' . synIDattr(synIDtrans(l:s), 'name')
+endfun
 
 "CocWarningHighlight xxx cterm=underline ctermfg=3 gui=undercurl guifg=#EBCB8B
 "CocErrorHighlight xxx cterm=underline ctermfg=1 gui=undercurl guifg=#BF616A
@@ -633,4 +664,23 @@ set previewheight=100
 "  autocmd VimEnter * :silent CocStart
 "augroup end
 "
+inoremap <silent><expr> <TAB>
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ CheckBackspace() ? "\<Tab>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+let g:matchup_matchparen_deferred = 1
+let g:matchup_matchparen_hi_surround_always = 1
+
+" vim-tmux-navigator
+let g:tmux_navigator_no_wrap = 1
+
 lua require('init')

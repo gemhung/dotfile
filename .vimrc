@@ -102,6 +102,8 @@ Plug 'ryanoasis/vim-devicons'                      " !Didn't work on mac
 "Plug 'dense-analysis/ale'                           " Find errors
 "Plug 'gemhung/rust-aledetail-pretty.vim'            " AutoComplete
 Plug 'christoomey/vim-tmux-navigator'                " Navigate between vim and tmux
+Plug 'christoomey/vim-tmux-navigator'                " Navigate between vim and tmux
+Plug 'Colmbus72/slim'
 call plug#end()
 
 
@@ -593,3 +595,6 @@ set previewheight=100
 "noremap <C-k> :TmuxNavigateUp<cr>
 "noremap ¬ :TmuxNavigateRight<cr>
 "noremap ∑ :TmuxNavigatePrevious<cr>
+"
+command! Slack :call slim#StartSlack()
+

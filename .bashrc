@@ -50,8 +50,6 @@ export PATH="$HOME/.local/bin:$PATH"
 eval `ssh-agent -s`
 ssh-add
 
-
-
 complete -W "\`grep -oE '^[a-zA-Z0-9_.-]+:([^=]|$)' ?akefile | sed 's/[^a-zA-Z0-9_.-]*$//'\`" make
 
 eval "$(/opt/homebrew/bin/brew shellenv)"
@@ -62,7 +60,8 @@ export LSCOLORS="gxfxcxdxbxegedabagacad"
 set rtp+=/opt/homebrew/opt/fzf
 
 export LANG="en_US.UTF-8"
-
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
 ## Colors?  Used for the prompt.
 #Regular text color
@@ -140,10 +139,13 @@ export NVM_DIR="$HOME/.nvm"
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
-
 . "$HOME/.cargo/env"
 
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH=$BUN_INSTALL/bin:$PATH
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"

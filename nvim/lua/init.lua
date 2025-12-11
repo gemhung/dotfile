@@ -53,7 +53,8 @@ require("nvim-tree").setup({
   diagnostics = {
     enable = true,
     show_on_dirs = true,
-    show_on_open_dirs = true,
+    -- show_on_open_dirs = true,
+    show_on_open_dirs = false,
     debounce_delay = 50,
     severity = {
       min = vim.diagnostic.severity.HINT,
@@ -66,6 +67,16 @@ require("nvim-tree").setup({
       error = "",
     },
   },
+  update_focused_file = {
+    enable = true,
+--    update_root = true,
+  },
+  git = { ignore = false, show_on_open_dirs = false },
+
+  --renderer = {
+  --  highlight_git = true,
+  --  icons = { show = { folder_arrow = false, git = false } },
+  --},
 })
 
 -- Configure LSP through rust-tools.nvim plugin.
@@ -74,9 +85,9 @@ require("nvim-tree").setup({
 local opts = {
   tools = {
     --autoSetHints = false,
-    runnables = {
-      use_telescope = true,
-    },
+    --runnables = {
+    --  use_telescope = true,
+    --},
     inlay_hints = {
       auto = false,
       show_parameter_hints = true,
@@ -134,3 +145,32 @@ local opts = {
 require("rust-tools").setup(opts)
 
 require("crates").setup()
+
+--local function open_nvim_tree()
+--
+--  -- open the tree
+--  require("nvim-tree.api").tree.open()
+--end
+--vim.api.nvim_create_autocmd({ "VimEnter" }, { callback = open_nvim_tree })
+
+
+--local lspconfig = require('lspconfig')
+--lspconfig.clangd.setup({
+--  --cmd = {'clangd', '--background-index', '--clang-tidy', '--log=verbose'},
+--  cmd = {'clangd', '--background-index', '--clang-tidy', '--log=verbose', '--inlay-hints'},
+--  
+--  init_options = {
+--    fallback_flags = { '-std=c++17' },
+--  },
+--})
+
+--require("clangd_extensions.inlay_hints").setup_autocmd()
+--require("clangd_extensions.inlay_hints").set_inlay_hints()
+
+-- To disable syntax highlight from lsp
+vim.api.nvim_create_autocmd("LspAttach", {
+  callback = function(args)
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    client.server_capabilities.semanticTokensProvider = nil
+  end,
+});

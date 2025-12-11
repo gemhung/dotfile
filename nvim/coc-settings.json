@@ -1,5 +1,23 @@
 {
+    "inlayHint.display": false,
+    "suggest.noselect": true,
+    "workspace.ignoredFolders": [
+      "$HOME",
+      "$HOME/.cargo/**",
+      "$HOME/.rustup/**"
+    ],
+
+
+    "rust-analyzer.enable": true,
     "rust-analyzer.updates.prompt" : false,
-    "inlayHint.display": true,
+    "rust-analyzer.inlayHints.bindingModeHints.enable": true,
+    "rust-analyzer.inlayHints.closureReturnTypeHints.enable": "always",
+    "rust-analyzer.inlayHints.expressionAdjustmentHints.enable": "always",
+    "rust-analyzer.inlayHints.lifetimeElisionHints.enable": "always",
+    "rust-analyzer.inlayHints.typeHints.hideNamedConstructor": true,
+
+    "clangd.enabled": true,
+    "clangd.arguments": ["--background-index", "--clang-tidy", "--inlay-hints"],
+    "clangd.fallbackFlags": ["-std=c++23"]
 }
 
