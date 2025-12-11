@@ -41,7 +41,7 @@ require("nvim-tree").setup({
   on_attach = my_on_attach,
   sort_by = "case_sensitive",
   view = {
-    width = 30,
+    width = 40,
   },
   renderer = {
     group_empty = true,
@@ -142,7 +142,7 @@ local opts = {
     },
 }
 
-require("rust-tools").setup(opts)
+-- require("rust-tools").setup(opts)
 
 require("crates").setup()
 
@@ -174,3 +174,17 @@ vim.api.nvim_create_autocmd("LspAttach", {
     client.server_capabilities.semanticTokensProvider = nil
   end,
 });
+
+
+-- copilot
+-- vim.g.copilot_no_tab_map = true
+-- 
+-- vim.defer_fn(function()
+--   vim.keymap.set("i", "<F2>", [[copilot#Accept("")]], {
+--     expr = true,
+--     noremap = true,
+--     silent = true,
+--     desc = "Copilot Accept Suggestion",
+--   })
+-- end, 100)
+

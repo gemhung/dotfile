@@ -15,9 +15,33 @@
     "rust-analyzer.inlayHints.expressionAdjustmentHints.enable": "always",
     "rust-analyzer.inlayHints.lifetimeElisionHints.enable": "always",
     "rust-analyzer.inlayHints.typeHints.hideNamedConstructor": true,
+    "rust-analyzer.lens.debug.enable": false,
+    "rust-analyzer.lens.run.enable": false,
+    "rust-analyzer.cargo.features": "all",
+    "rust-analyzer.check.features": "all",
+    "rust-analyzer.lens.implementations.enable": false,
 
     "clangd.enabled": true,
     "clangd.arguments": ["--background-index", "--clang-tidy", "--inlay-hints"],
-    "clangd.fallbackFlags": ["-std=c++23"]
+    "clangd.fallbackFlags": ["-std=c++23"],
+
+    "javascript.inlayHints.variableTypes.enabled": true,
+    "javascript.inlayHints.enumMemberValues.enabled": true,
+    "javascript.inlayHints.parameterNames.enabled": "all",
+    "javascript.inlayHints.propertyDeclarationTypes.enabled": true,
+    "javascript.inlayHints.parameterTypes.enabled": true,
+    "javascript.inlayHints.functionLikeReturnTypes.enabled": true,
+
+    "codeLens.enable": true,
+
+    
+    "typescript.inlayHints.parameterNames.enabled" : "all",
+    "typescript.inlayHints.parameterTypes.enabled": true,
+    "typescript.inlayHints.variableTypes.enabled": true,
+    "typescript.inlayHints.propertyDeclarationTypes.enabled": true,
+    "typescript.inlayHints.functionLikeReturnTypes.enabled": true,
+    "typescript.inlayHints.enumMemberValues.enabled": true,
+    "typescript.inlayHints.variableTypes.suppressWhenTypeMatchesName": true,
 }
+
 

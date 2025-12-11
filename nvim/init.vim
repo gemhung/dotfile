@@ -56,6 +56,10 @@ autocmd BufRead,BufNewFile *.hbs set ft=html syntax=html
 autocmd BufRead,BufNewFile *.html,*.htm,*.jinja setlocal tabstop=2 shiftwidth=2 softtabstop=2
 autocmd BufRead,BufNewFile *.html,*.htm,*.jinja set ft=jinja
 
+autocmd FileType typescript,typescriptreact setlocal tabstop=2 shiftwidth=2 expandtab
+autocmd FileType javascript setlocal tabstop=2 shiftwidth=2 expandtab
+
+
 " Toggle hightlight search
 nnoremap <F2> :set hlsearch!<CR>
 " Toggle scrollbind
@@ -122,9 +126,10 @@ Plug 'christoomey/vim-tmux-navigator'                " Navigate between vim and 
 Plug 'nvim-tree/nvim-web-devicons' " optional
 Plug 'nvim-tree/nvim-tree.lua'
 Plug 'neovim/nvim-lspconfig'
-Plug 'simrat39/rust-tools.nvim'
+"Plug 'simrat39/rust-tools.nvim'
 Plug 'nvim-lua/plenary.nvim'
-Plug 'saecki/crates.nvim', { 'tag': 'v0.4.0' }
+"Plug 'saecki/crates.nvim', { 'tag': 'v0.4.0' }
+Plug 'saecki/crates.nvim', { 'tag': 'stable' }
 Plug 'lepture/vim-jinja'
 "Plug 'Colmbus72/slim'
 Plug 'andymass/vim-matchup'
@@ -134,6 +139,15 @@ Plug 'rhysd/vim-clang-format'            "cpp
 "Plug 'p00f/clangd_extensions.nvim'
 
 Plug 'lunacookies/vim-rust-syntax-ext'              " rust syntax highlight
+Plug 'pangloss/vim-javascript'                      " javascript
+"Plug 'HerringtonDarkholme/yats.vim' " javascript
+Plug 'tpope/vim-rails' " ruby, rails
+Plug 'vim-ruby/vim-ruby' " ruby, rails
+
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npx --yes yarn install' }  " markdown preview
+
+Plug 'github/copilot.vim' " copilot
+Plug 'f-person/git-blame.nvim'  " git blame
 call plug#end()
 
 
@@ -144,6 +158,7 @@ call plug#end()
 " "|_|   |_|\__,_|\__, |_|_| |_|___/  \____\___/|_| |_|_| |_|\__, |
 " "               |___/                                      |___/
 
+" let g:coc_global_extensions = ['coc-solargraph']
 " vim-cpp-enhanced-highlight
 let g:cpp_class_scope_highlight = 1
 "let g:cpp_member_variable_highlight = 1
@@ -296,8 +311,9 @@ let g:gitgutter_sign_modified = 'M'
 nnoremap <C-p> :Files<CR>
 nnoremap <C-f> :RG<CR>
 "let g:fzf_action = { 'enter': 'tab split' }
-let g:fzf_action = { 'return': 'tab drop' }
 set rtp+=/usr/local/opt/fzf
+let g:fzf_action = { 'return': 'tab drop' }
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.9 } }
 let $FZF_DEFAULT_OPTS="--preview-window 'right:57%' --bind ctrl-y:preview-up,ctrl-e:preview-down,ctrl-u:preview-half-page-up,ctrl-d:preview-half-page-down"
 
 "" Ctrlsf
@@ -664,11 +680,16 @@ set previewheight=100
 "  autocmd VimEnter * :silent CocStart
 "augroup end
 "
-inoremap <silent><expr> <TAB>
+" inoremap <silent><expr> <TAB>
+"       \ coc#pum#visible() ? coc#pum#next(1) :
+"       \ CheckBackspace() ? "\<Tab>" :
+"       \ coc#refresh()
+" inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+inoremap <silent><expr> <M-j>
       \ coc#pum#visible() ? coc#pum#next(1) :
       \ CheckBackspace() ? "\<Tab>" :
       \ coc#refresh()
-inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+inoremap <expr><M-k> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
@@ -682,5 +703,10 @@ let g:matchup_matchparen_hi_surround_always = 1
 
 " vim-tmux-navigator
 let g:tmux_navigator_no_wrap = 1
+
+" vim-copilot
+"let g:copilot_no_tab_map = v:true
+"inoremap <silent><expr> <F2> copilot#Accept("\<CR>")
+
 
 lua require('init')

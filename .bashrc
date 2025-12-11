@@ -30,6 +30,7 @@ alias dk='docker'
 alias dkp='docker container ps -a'
 alias ll='ls -al'
 alias ww='pbcopy'
+alias pp="tr -d '\n' | pbcopy" 
 
 PATH=/opt/rh/devtoolset-7/root/usr/bin/:$PATH
 PATH=/opt/rh/rh-python36/root/usr/bin/:$PATH
@@ -130,7 +131,10 @@ HC="${YELLOW}"
 RC="${BWHITE}"
 #default color
 DF='\[\e[0m\]'
-PS1="${BGREEN}[${BMAGENTA}\u${BRED}@${GREEN}\h ${BCYAN}\W${DF}${BGREEN}] ${SC}${DF}${HC}$(parse_git_branch)${DF} "
+SHORT_USER="gem"
+SHORT_HOST="GMBP"
+#PS1="${BGREEN}[${BMAGENTA}\u${BRED}@${GREEN}\h ${BCYAN}\W${DF}${BGREEN}] ${SC}${DF}${HC}$(parse_git_branch)${DF} "
+PS1="${BGREEN}[${BMAGENTA}${SHORT_USER}${WHITE}@${GREEN}${SHORT_HOST} ${BCYAN}\W${DF}${BGREEN}] ${SC}${DF}${HC}$(parse_git_branch)${DF} "
 }
 
 export NVM_DIR="$HOME/.nvm"
@@ -149,3 +153,4 @@ export PATH=$BUN_INSTALL/bin:$PATH
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
+
