@@ -141,7 +141,17 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+#[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+# fzf key bindings (Ctrl-r history search)
+if [ -f "$(brew --prefix)/opt/fzf/shell/key-bindings.bash" ]; then
+  source "$(brew --prefix)/opt/fzf/shell/key-bindings.bash"
+fi
+
+# fzf completion (optional)
+if [ -f "$(brew --prefix)/opt/fzf/shell/completion.bash" ]; then
+  source "$(brew --prefix)/opt/fzf/shell/completion.bash"
+fi
+
 
 . "$HOME/.cargo/env"
 
