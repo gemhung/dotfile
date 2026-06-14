@@ -13,5 +13,12 @@ brew install bat
 brew tap homebrew/cask-fonts
 #brew install font-hack-nerd-font # out-of-dated
 brew install --cask font-jetbrains-mono-nerd-font
+brew install cmake
+
+
+# In nvim,
+# :CocInstall coc-rust-analyzer
+# :CocCopilot setup
+# :CocInstall coc-go
 
 

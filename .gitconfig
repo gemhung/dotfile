@@ -1,6 +1,6 @@
 [user]
-	name = gemhung
-	email = gembright.stone.hung@gmail.com
+	name = Gem Hung
+	email = gem.hung@cybereason.com
 [alias]
     uu = status -u
     ck = checkout
@@ -8,7 +8,12 @@
 	co = checkout
 	st = status
 [core]
-    editor = vim
+	editor = nvim
     excludesfile = ~/.gitignore_global
 [pull]
 	rebase = false
+[credential]
+	helper = !gh auth git-credential
+	useHttpPath = true
+[sequence]
+	editor = nvim

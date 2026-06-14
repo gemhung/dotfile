@@ -2,7 +2,6 @@
     "inlayHint.display": false,
     "suggest.noselect": true,
     "workspace.ignoredFolders": [
-      "$HOME",
       "$HOME/.cargo/**",
       "$HOME/.rustup/**"
     ],
@@ -17,7 +16,15 @@
     "rust-analyzer.inlayHints.typeHints.hideNamedConstructor": true,
     "rust-analyzer.lens.debug.enable": false,
     "rust-analyzer.lens.run.enable": false,
+
+    "rust-analyzer.cargo.buildScripts.enable": false,
+    "rust-analyzer.cargo.loadOutDirsFromCheck": false,
+    "rust-analyzer.check.workspace": false,
+    "rust-analyzer.check.allTargets": false,
+
+    "rust-analyzer.check.features": "all",
     "rust-analyzer.cargo.features": "all",
+
     "rust-analyzer.check.features": "all",
     "rust-analyzer.lens.implementations.enable": false,
 
@@ -41,7 +48,7 @@
     "typescript.inlayHints.propertyDeclarationTypes.enabled": true,
     "typescript.inlayHints.functionLikeReturnTypes.enabled": true,
     "typescript.inlayHints.enumMemberValues.enabled": true,
-    "typescript.inlayHints.variableTypes.suppressWhenTypeMatchesName": true,
+    "typescript.inlayHints.variableTypes.suppressWhenTypeMatchesName": true
 }
 
 

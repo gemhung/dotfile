@@ -161,6 +161,13 @@ fi
 export BUN_INSTALL="$HOME/.bun"
 export PATH=$BUN_INSTALL/bin:$PATH
 
+# kubectl
+export KUBECONFIG=~/.kube/config_oracle
+eval "$(kubectl completion bash)"
+alias k=kubectl
+complete -o default -F __start_kubectl k
+
+
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
 

@@ -337,7 +337,7 @@ let g:coc_start_at_startup=0
 function! CocTimerStart(timer)
     exec "CocStart"
 endfunction
-call timer_start(0,'CocTimerStart',{'repeat':1})
+call timer_start(0,'CocTimerStart',{'repeat':0})
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
