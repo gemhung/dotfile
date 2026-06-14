@@ -140,9 +140,9 @@ Plug 'rhysd/vim-clang-format'            "cpp
 
 Plug 'lunacookies/vim-rust-syntax-ext'              " rust syntax highlight
 Plug 'pangloss/vim-javascript'                      " javascript
-"Plug 'HerringtonDarkholme/yats.vim' " javascript
-Plug 'tpope/vim-rails' " ruby, rails
-Plug 'vim-ruby/vim-ruby' " ruby, rails
+"Plug 'HerringtonDarkholme/yats.vim'                " javascript
+Plug 'tpope/vim-rails'                              " ruby, rails
+Plug 'vim-ruby/vim-ruby'                            " ruby, rails
 
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npx --yes yarn install' }  " markdown preview
 
@@ -157,6 +157,33 @@ call plug#end()
 " "|  __/| | |_| | (_| | | | | \__ \ | |__| (_) | | | |  _| | (_| |
 " "|_|   |_|\__,_|\__, |_|_| |_|___/  \____\___/|_| |_|_| |_|\__, |
 " "               |___/                                      |___/
+
+
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_types = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_structs = 1
+
+let g:go_highlight_array_whitespace_error = 1
+let g:go_highlight_chan_whitespace_error = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_space_tab_error = 1
+let g:go_highlight_trailing_whitespace_error = 1
+
+let g:go_highlight_operators = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_function_parameters = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_types = 1
+
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_string_spellcheck = 1
+let g:go_highlight_format_strings = 1
+let g:go_highlight_generate_tags = 1
+let g:go_highlight_variable_assignments = 1
+let g:go_highlight_variable_declarations = 1
 
 " let g:coc_global_extensions = ['coc-solargraph']
 " vim-cpp-enhanced-highlight
@@ -231,7 +258,14 @@ autocmd vimenter * wincmd p
 nnoremap <silent> <C-n> :NvimTreeToggle<cr>
 " Find where I am
 nmap me :NvimTreeFindFile<CR>
-nmap fmt :RustFmt<CR>
+" 目前的rustfmt如果沒有 rustfmt.toml 指定edition 會變成走edition 2018
+" 所以改用RustFmtBuffer
+function! RustFmtBuffer()
+  let l:view = winsaveview()
+  silent keepjumps %!rustfmt --edition 2024
+  call winrestview(l:view)
+endfunction
+nnoremap <silent> fmt :call RustFmtBuffer()<CR>
 nmap fmtc :ClangFormat<CR>
 " Swtich tabs
 "map <Tab> :call CheckNerdTree(":tabnext")<CR>
@@ -309,12 +343,30 @@ let g:gitgutter_sign_modified = 'M'
 
 "" FZF
 nnoremap <C-p> :Files<CR>
-nnoremap <C-f> :RG<CR>
+"nnoremap <C-f> :RG<CR>
+"nnoremap <silent> <C-f> :RG <C-r><C-w><CR>
+
+function! RgWordOrOpen() abort
+  let l:word = expand('<cword>')
+
+  if empty(l:word)
+    let l:word = expand('<cWORD>')
+  endif
+
+  if empty(l:word)
+    RG
+  else
+    execute 'RG ' . escape(l:word, ' \')
+  endif
+endfunction
+nnoremap <silent> <C-f> :call RgWordOrOpen()<CR>
+
 "let g:fzf_action = { 'enter': 'tab split' }
 set rtp+=/usr/local/opt/fzf
 let g:fzf_action = { 'return': 'tab drop' }
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.9 } }
-let $FZF_DEFAULT_OPTS="--preview-window 'right:57%' --bind ctrl-y:preview-up,ctrl-e:preview-down,ctrl-u:preview-half-page-up,ctrl-d:preview-half-page-down"
+"let $FZF_DEFAULT_OPTS="--preview-window 'right:57%' --bind ctrl-y:preview-up,ctrl-e:preview-down,ctrl-u:preview-half-page-up,ctrl-d:preview-half-page-down"
+let $FZF_DEFAULT_OPTS="--preview-window 'right:57%' --bind ctrl-y:preview-up,ctrl-e:preview-down,ctrl-u:preview-half-page-up,ctrl-d:preview-half-page-down,alt-j:page-down,alt-k:page-up"
 
 "" Ctrlsf
 "vmap     <C-F> <Plug>CtrlSFVwordExec

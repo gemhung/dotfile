@@ -9,7 +9,7 @@ cp ~/.gitignore_global ./.gitignore_global
 cp ~/.tmux.conf ./.tmux.conf
 # vim
 cp ~/.vimrc ./.vimrc
-cp -rf ~/.vim/ ./.vim
+#cp -rf ~/.vim/ ./.vim
 # nvim
 cp -rf ~/.config/nvim/ ./nvim
 
